@@ -39,19 +39,36 @@
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
-			<version>5.5.13.2</version>
+			<version>5.5.13</version>
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf.tool</groupId>
 			<artifactId>xmlworker</artifactId>
-			<version>5.5.13.2</version>
+			<version>5.5.13</version>
 		</dependency>
+		<!-- 支持中文 -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext-asian</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+		<!-- 支持css样式渲染 -->
+		<dependency>
+			<groupId>org.xhtmlrenderer</groupId>
+			<artifactId>flying-saucer-pdf-itext5</artifactId>
+			<version>9.1.20</version>
+		</dependency>
+		<!-- 转换html为标准xhtml包 -->
+		<dependency>
+			<groupId>net.sf.jtidy</groupId>
+			<artifactId>jtidy</artifactId>
+			<version>r938</version>
+		</dependency>
+    </dependencies>
 
-	</dependencies>
-
-	<build>
-		<finalName>mysqlbackup</finalName>
-		<!-- 插件 -->
+    <build>
+        <finalName>mysqlbackup</finalName>
+        <!-- 插件 -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
