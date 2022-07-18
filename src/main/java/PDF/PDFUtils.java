@@ -3,12 +3,10 @@ package PDF;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfName;
-import com.itextpdf.text.pdf.PdfPageEvent;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.codec.Base64;
 import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.XMLWorkerFontProvider;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
 import com.itextpdf.tool.xml.html.CssAppliers;
 import com.itextpdf.tool.xml.html.CssAppliersImpl;
@@ -20,55 +18,30 @@ import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
 import com.itextpdf.tool.xml.pipeline.html.AbstractImageProvider;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
- * @Description:
+ * @Description: 生成PDF文件流
  * @author: 任传君
- * @date: 2022.07.07
+ * @date: 2022.07.08
  */
-public class TestPDF {
+public class PDFUtils {
 
 
-
-    public static void main(String[] args) throws Exception {
-        StringBuffer textHtml = new StringBuffer();
-        File file = new File("D:/workspace/generator/src/main/resources/aaa.html");
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String tempString = null;
-        // 一次读入一行，直到读入null为文件结束
-        while ((tempString = reader.readLine()) != null) {
-            textHtml.append(tempString);
-        }
-        reader.close();
-        writeToOutputStreamAsPDF(textHtml.toString());
-    }
-
-    private static void writeToOutputStreamAsPDF(String htmlStr) throws Exception {
-        String targetFile = "D:/pdfDemo1.pdf";
-        File targeFile = new File(targetFile);
-        if (targeFile.exists()) {
-            targeFile.delete();
-        }
-
-        //定义pdf文件尺寸，采用A4横切 左、右、上、下间距
+    public static ByteArrayOutputStream OutputPDF(String htmlStr) throws Exception {
+        //创建字节流
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //定义pdf文件尺寸，采用A4横切  左、右、上、下间距
         Document document = new Document(PageSize.A4, 25, 25, 15, 40);
-//        PdfWriter writer = PdfWriter.getInstance(document, baos);
-        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(targetFile));
-
+        //创建PDF加入字节流
+        PdfWriter writer = PdfWriter.getInstance(document, baos);
         writer.addViewerPreference(PdfName.PRINTSCALING, PdfName.NONE);
         document.open();
 
-        // CSS
+        //css 样式加载
         CSSResolver cssResolver = new StyleAttrCSSResolver();
         CssAppliers cssAppliers = new CssAppliersImpl(new XMLWorkerFontProvider() {
             @Override
@@ -76,14 +49,15 @@ public class TestPDF {
                 try {
                     //用于中文显示的Provider
                     BaseFont bfChinese = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
-                    return new Font(bfChinese, size, style);
+                    Font font = new Font(bfChinese, size, style);
+                    font.setColor(color);
+                    return font;
                 } catch (Exception e) {
                     return super.getFont(fontname, encoding, size, style);
                 }
             }
         });
-
-        //html
+        //html加载,图片保存base64
         HtmlPipelineContext htmlContext = new HtmlPipelineContext(cssAppliers);
         htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
         htmlContext.setImageProvider(new AbstractImageProvider() {
@@ -112,18 +86,15 @@ public class TestPDF {
             }
         });
 
-
-        // Pipelines
         PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
         HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
         CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
-
         // XML Worker
         XMLWorker worker = new XMLWorker(css, true);
         XMLParser p = new XMLParser(worker);
         p.parse(new ByteArrayInputStream(htmlStr.getBytes()));
 
         document.close();
-
+        return baos;
     }
 }

@@ -64,6 +64,21 @@
 			<artifactId>jtidy</artifactId>
 			<version>r938</version>
 		</dependency>
+
+
+		<!--三方加密库+-->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk15on</artifactId>
+			<version>1.60</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.60</version>
+		</dependency>
+
+
     </dependencies>
 
     <build>
