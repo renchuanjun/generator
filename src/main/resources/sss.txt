@@ -1,0 +1,37 @@
+ <table class="table-style" style=" border: 1px solid rgb(180, 180, 180); width: 100%; border-collapse: collapse; text-align: center; border-spacing: 0;" border="1">
+            <tbody>
+            <tr>
+                <th colspan="4" style="text-align: left"> 合格项 </th>
+            </tr>
+            <tr>
+                <th>序号</th>
+                <th>检测类型</th>
+                <th>检测项目</th>
+                <th>判定</th>
+            </tr>
+            <tr v-for="row in qualifiedData" :key="row" style="page-break-inside: avoid">
+                <td> 【序号】 </td> <td > 【检测类型】 </td> <td> 【检测项目】 </td> <td> 【判定】 </td>
+            </tr>
+            <tr>
+                <th colspan="4" style="text-align: left">
+                    不合格项
+                </th>
+            </tr>
+            <tr v-for="row in unqualifiedData" :key="row" style="page-break-inside: avoid">
+                <td> 【序号】</td>
+                <td> 【检测类型】</td>
+                <td> 【检测项目】</td>
+                <td> 【判定】</td>
+            </tr>
+            <tr>
+                <th colspan="4" style="text-align: right; padding: 10px 5%">
+                    通过率：【通过率】
+                </th>
+            </tr>
+            <tr>
+                <th colspan="4" style="text-align: right; padding: 10px 5%">
+                    总体判定结果：【总体判定结果】
+                </th>
+            </tr>
+            </tbody>
+        </table>

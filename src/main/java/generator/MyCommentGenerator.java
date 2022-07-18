@@ -1,4 +1,4 @@
-package org.mybatis.generator;
+package generator;
 
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 

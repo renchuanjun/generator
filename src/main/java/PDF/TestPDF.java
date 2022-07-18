@@ -60,10 +60,11 @@ public class TestPDF {
             targeFile.delete();
         }
 
-        //定义pdf文件尺寸，采用A4横切
-        Document document = new Document(PageSize.A4, 25, 25, 15, 40);// 左、右、上、下间距
+        //定义pdf文件尺寸，采用A4横切 左、右、上、下间距
+        Document document = new Document(PageSize.A4, 25, 25, 15, 40);
 //        PdfWriter writer = PdfWriter.getInstance(document, baos);
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(targetFile));
+
 //        PdfPageEvent header = new PdfReportHeaderFooter("", 8, PageSize.A4);
 //        writer.setPageEvent(new PdfPageEvent(maximumPageNumber));
 

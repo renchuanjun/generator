@@ -1,4 +1,4 @@
-package org.mybatis.generator;
+package generator;
 
 import java.util.List;
 
