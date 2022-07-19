@@ -201,11 +201,8 @@ public class Sign {
         String alias = (String) keyStore.aliases().nextElement();
         PrivateKey PrivateKey = (PrivateKey) keyStore.getKey(alias, PASSWORD);
         Certificate[] chain = keyStore.getCertificateChain(alias);
-        sign(SRC, String.format(OUTPUT_SRC, 3),
-                IMG, chain, PrivateKey,
-                DigestAlgorithms.SHA1,
-                null,
-                MakeSignature.CryptoStandard.CMS,
+        sign(SRC, String.format(OUTPUT_SRC, 3), IMG, chain, PrivateKey,
+                DigestAlgorithms.SHA1, null, MakeSignature.CryptoStandard.CMS,
                 "Test", "总体判定结果");
         System.out.println("签章完成");
     }

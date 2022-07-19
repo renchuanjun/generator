@@ -1,7 +1,4 @@
-package PDF;
-import PDF.Seal.SealCircle;
-import PDF.Seal.SealConfiguration;
-import PDF.Seal.SealFont;
+package PDF.Seal;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -27,11 +24,10 @@ public abstract class SealUtil {
     /**
      * 生成私人印章图片，并保存到指定路径
      *
-     * @param lineSize 边线宽度
-     * @param font 字体对象
+     * @param lineSize  边线宽度
+     * @param font      字体对象
      * @param addString 追加字符
-     * @param fullPath 保存全路径
-     *
+     * @param fullPath  保存全路径
      * @throws Exception 异常
      */
     public static void buildAndStorePersonSeal(int imageSize, int lineSize, SealFont font, String addString,
@@ -42,9 +38,8 @@ public abstract class SealUtil {
     /**
      * 生成印章图片，并保存到指定路径
      *
-     * @param conf 配置文件F
+     * @param conf     配置文件F
      * @param fullPath 保存全路径
-     *
      * @throws Exception 异常
      */
     public static void buildAndStoreSeal(SealConfiguration conf, String fullPath) throws Exception {
@@ -55,13 +50,10 @@ public abstract class SealUtil {
      * 生成印章图片的byte数组
      *
      * @param image BufferedImage对象
-     *
      * @return byte数组
-     *
      * @throws IOException 异常
      */
     public static byte[] buildBytes(BufferedImage image) throws Exception {
-
         try (ByteArrayOutputStream outStream = new ByteArrayOutputStream()) {
             //bufferedImage转为byte数组
             ImageIO.write(image, "png", outStream);
@@ -73,84 +65,64 @@ public abstract class SealUtil {
      * 生成印章图片
      *
      * @param conf 配置文件
-     *
      * @return BufferedImage对象
-     *
      * @throws Exception 异常
      */
     public static BufferedImage buildSeal(SealConfiguration conf) throws Exception {
-
         //1.画布
         BufferedImage bi = new BufferedImage(conf.getImageSize(), conf.getImageSize(), BufferedImage.TYPE_4BYTE_ABGR);
-
         //2.画笔
         Graphics2D g2d = bi.createGraphics();
-
         //2.1抗锯齿设置
         //文本不抗锯齿，否则圆中心的文字会被拉长
-        RenderingHints hints = new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+        RenderingHints hints = new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
         //其他图形抗锯齿
         hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHints(hints);
-
         //2.2设置背景透明度
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC, 0));
-
         //2.3填充矩形
         g2d.fillRect(0, 0, conf.getImageSize(), conf.getImageSize());
-
         //2.4重设透明度，开始画图
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC, 1));
-
         //2.5设置画笔颜色
         g2d.setPaint(conf.getBackgroudColor());
-
         //3.画边线圆
         if (conf.getBorderCircle() != null) {
             drawCicle(g2d, conf.getBorderCircle(), INIT_BEGIN, INIT_BEGIN);
         } else {
             throw new Exception("BorderCircle can not null！");
         }
-
         int borderCircleWidth = conf.getBorderCircle().getWidth();
         int borderCircleHeight = conf.getBorderCircle().getHeight();
-
         //4.画内边线圆
         if (conf.getBorderInnerCircle() != null) {
             int x = INIT_BEGIN + borderCircleWidth - conf.getBorderInnerCircle().getWidth();
             int y = INIT_BEGIN + borderCircleHeight - conf.getBorderInnerCircle().getHeight();
             drawCicle(g2d, conf.getBorderInnerCircle(), x, y);
         }
-
         //5.画内环线圆
         if (conf.getInnerCircle() != null) {
             int x = INIT_BEGIN + borderCircleWidth - conf.getInnerCircle().getWidth();
             int y = INIT_BEGIN + borderCircleHeight - conf.getInnerCircle().getHeight();
             drawCicle(g2d, conf.getInnerCircle(), x, y);
         }
-
         //6.画弧形主文字
         if (borderCircleHeight != borderCircleWidth) {
             drawArcFont4Oval(g2d, conf.getBorderCircle(), conf.getMainFont(), true);
         } else {
             drawArcFont4Circle(g2d, borderCircleHeight, conf.getMainFont(), true);
         }
-
         //7.画弧形副文字
         if (borderCircleHeight != borderCircleWidth) {
             drawArcFont4Oval(g2d, conf.getBorderCircle(), conf.getViceFont(), false);
         } else {
             drawArcFont4Circle(g2d, borderCircleHeight, conf.getViceFont(), false);
         }
-
         //8.画中心字
-        drawFont(g2d, (borderCircleWidth + INIT_BEGIN) * 2, (borderCircleHeight + INIT_BEGIN) * 2,
-                conf.getCenterFont());
-
+        drawFont(g2d, (borderCircleWidth + INIT_BEGIN) * 2, (borderCircleHeight + INIT_BEGIN) * 2, conf.getCenterFont());
         //9.画抬头文字
         drawFont(g2d, (borderCircleWidth + INIT_BEGIN) * 2, (borderCircleHeight + INIT_BEGIN) * 2, conf.getTitleFont());
-
         g2d.dispose();
         return bi;
     }
@@ -158,42 +130,32 @@ public abstract class SealUtil {
     /**
      * 生成私人印章图片
      *
-     * @param lineSize 线条粗细
-     * @param font 字体对象
+     * @param lineSize  线条粗细
+     * @param font      字体对象
      * @param addString 是否添加文字，如“印”
-     *
      * @return BufferedImage对象
-     *
      * @throws Exception 异常
      */
-    public static BufferedImage buildPersonSeal(int imageSize, int lineSize, SealFont font, String addString)
-            throws Exception {
+    public static BufferedImage buildPersonSeal(int imageSize, int lineSize, SealFont font, String addString) throws Exception {
         if (font == null || font.getFontText().length() < 2 || font.getFontText().length() > 4) {
             throw new Exception("FontText.length illegal!");
         }
-
         int fixH = 18;
         int fixW = 2;
-
         //1.画布
         BufferedImage bi = new BufferedImage(imageSize, imageSize / 2, BufferedImage.TYPE_4BYTE_ABGR);
-
         //2.画笔
         Graphics2D g2d = bi.createGraphics();
-
         //2.1设置画笔颜色
         g2d.setPaint(Color.RED);
-
         //2.2抗锯齿设置
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         //3.写签名
         int marginW = fixW + lineSize;
         float marginH;
         FontRenderContext context = g2d.getFontRenderContext();
         Rectangle2D rectangle;
         Font f;
-
         if (font.getFontText().length() == 2) {
             if (addString != null && addString.trim().length() > 0) {
                 bi = drawThreeFont(bi, g2d, font.setFontText(font.getFontText() + addString), lineSize, imageSize, fixH,
@@ -204,17 +166,13 @@ public abstract class SealUtil {
                 rectangle = f.getStringBounds(font.getFontText().substring(0, 1), context);
                 marginH = (float) (Math.abs(rectangle.getCenterY()) * 2 + marginW) + fixH - 4;
                 g2d.drawString(font.getFontText().substring(0, 1), marginW, marginH);
-                marginW += Math.abs(rectangle.getCenterX()) * 2 + (font.getFontSpace() == null ?
-                        INIT_BEGIN :
-                        font.getFontSpace());
+                marginW += Math.abs(rectangle.getCenterX()) * 2 + (font.getFontSpace() == null ? INIT_BEGIN : font.getFontSpace());
                 g2d.drawString(font.getFontText().substring(1), marginW, marginH);
-
                 //拉伸
                 BufferedImage nbi = new BufferedImage(imageSize, imageSize, bi.getType());
                 Graphics2D ng2d = nbi.createGraphics();
                 ng2d.setPaint(Color.RED);
                 ng2d.drawImage(bi, 0, 0, imageSize, imageSize, null);
-
                 //画正方形
                 ng2d.setStroke(new BasicStroke(lineSize));
                 ng2d.drawRect(0, 0, imageSize, imageSize);
@@ -223,29 +181,24 @@ public abstract class SealUtil {
             }
         } else if (font.getFontText().length() == 3) {
             if (addString != null && addString.trim().length() > 0) {
-                bi = drawFourFont(bi, font.setFontText(font.getFontText() + addString), lineSize, imageSize, fixH,
-                        fixW);
+                bi = drawFourFont(bi, font.setFontText(font.getFontText() + addString), lineSize, imageSize, fixH, fixW);
             } else {
-                bi = drawThreeFont(bi, g2d, font.setFontText(font.getFontText()), lineSize, imageSize, fixH, fixW,
-                        false);
+                bi = drawThreeFont(bi, g2d, font.setFontText(font.getFontText()), lineSize, imageSize, fixH, fixW, false);
             }
         } else {
             bi = drawFourFont(bi, font, lineSize, imageSize, fixH, fixW);
         }
-
         return bi;
     }
 
     /**
      * 将byte数组保存为本地文件
      *
-     * @param buf byte数组
+     * @param buf      byte数组
      * @param fullPath 文件全路径
-     *
      * @throws IOException 异常
      */
     private static void storeBytes(byte[] buf, String fullPath) throws IOException {
-
         File file = new File(fullPath);
         try (FileOutputStream fos = new FileOutputStream(file);
              BufferedOutputStream bos = new BufferedOutputStream(fos)) {
@@ -264,13 +217,13 @@ public abstract class SealUtil {
     /**
      * 画三字
      *
-     * @param bi 图片
-     * @param g2d 原画笔
-     * @param font 字体对象
-     * @param lineSize 线宽
+     * @param bi        图片
+     * @param g2d       原画笔
+     * @param font      字体对象
+     * @param lineSize  线宽
      * @param imageSize 图片尺寸
-     * @param fixH 修复膏
-     * @param fixW 修复宽
+     * @param fixH      修复膏
+     * @param fixW      修复宽
      * @param isWithYin 是否含有“印”
      */
     private static BufferedImage drawThreeFont(BufferedImage bi, Graphics2D g2d, SealFont font, int lineSize,
@@ -327,12 +280,12 @@ public abstract class SealUtil {
     /**
      * 画四字
      *
-     * @param bi 图片
-     * @param font 字体对象
-     * @param lineSize 线宽
+     * @param bi        图片
+     * @param font      字体对象
+     * @param lineSize  线宽
      * @param imageSize 图片尺寸
-     * @param fixH 修复膏
-     * @param fixW 修复宽
+     * @param fixH      修复膏
+     * @param fixW      修复宽
      */
     private static BufferedImage drawFourFont(BufferedImage bi, SealFont font, int lineSize, int imageSize, int fixH,
                                               int fixW) {
@@ -377,10 +330,10 @@ public abstract class SealUtil {
     /**
      * 绘制圆弧形文字
      *
-     * @param g2d 画笔
+     * @param g2d          画笔
      * @param circleRadius 弧形半径
-     * @param font 字体对象
-     * @param isTop 是否字体在上部，否则在下部
+     * @param font         字体对象
+     * @param isTop        是否字体在上部，否则在下部
      */
     private static void drawArcFont4Circle(Graphics2D g2d, int circleRadius, SealFont font, boolean isTop) {
         if (font == null) {
@@ -471,10 +424,10 @@ public abstract class SealUtil {
     /**
      * 绘制椭圆弧形文字
      *
-     * @param g2d 画笔
+     * @param g2d    画笔
      * @param circle 外围圆
-     * @param font 字体对象
-     * @param isTop 是否字体在上部，否则在下部
+     * @param font   字体对象
+     * @param isTop  是否字体在上部，否则在下部
      */
     private static void drawArcFont4Oval(Graphics2D g2d, SealCircle circle, SealFont font, boolean isTop) {
         if (font == null) {
@@ -555,7 +508,7 @@ public abstract class SealUtil {
                 x += -w / 2f * (float) Math.cos(qxang);
                 y += -w / 2f * (float) Math.sin(qxang);
             } else {
-                x += (h * minRat ) * (float) Math.cos(fxang);
+                x += (h * minRat) * (float) Math.cos(fxang);
                 y += (h * minRat) * (float) Math.sin(fxang);
                 x += w / 2f * (float) Math.cos(qxang);
                 y += w / 2f * (float) Math.sin(qxang);
@@ -577,10 +530,10 @@ public abstract class SealUtil {
     /**
      * 画文字
      *
-     * @param g2d 画笔
-     * @param circleWidth 边线圆宽度
+     * @param g2d          画笔
+     * @param circleWidth  边线圆宽度
      * @param circleHeight 边线圆高度
-     * @param font 字体对象
+     * @param font         字体对象
      */
     private static void drawFont(Graphics2D g2d, int circleWidth, int circleHeight, SealFont font) {
         if (font == null) {
@@ -627,7 +580,7 @@ public abstract class SealUtil {
     /**
      * 画圆
      *
-     * @param g2d 画笔
+     * @param g2d    画笔
      * @param circle 圆配置对象
      */
     private static void drawCicle(Graphics2D g2d, SealCircle circle, int x, int y) {
