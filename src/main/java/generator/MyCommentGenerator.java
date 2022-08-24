@@ -19,10 +19,11 @@ import org.mybatis.generator.config.MergeConstants;
 import org.mybatis.generator.config.PropertyRegistry;
 
 
-public class MyCommentGenerator implements CommentGenerator{
+public class MyCommentGenerator implements CommentGenerator {
     private Properties properties;
     private boolean suppressDate;
     private boolean suppressAllComments;
+
     public MyCommentGenerator() {
         super();
         properties = new Properties();
@@ -74,7 +75,7 @@ public class MyCommentGenerator implements CommentGenerator{
 
         suppressDate = isTrue(properties
                 .getProperty(PropertyRegistry.COMMENT_GENERATOR_SUPPRESS_DATE));
-        
+
         suppressAllComments = isTrue(properties
                 .getProperty(PropertyRegistry.COMMENT_GENERATOR_SUPPRESS_ALL_COMMENTS));
     }
@@ -84,12 +85,11 @@ public class MyCommentGenerator implements CommentGenerator{
      * not wish to include the Javadoc tag - however, if you do not include the
      * Javadoc tag then the Java merge capability of the eclipse plugin will
      * break.
-     * 
-     * @param javaElement
-     *            the java element
+     *
+     * @param javaElement the java element
      */
     protected void addJavadocTag(JavaElement javaElement,
-            boolean markAsDoNotDelete) {
+                                 boolean markAsDoNotDelete) {
         javaElement.addJavaDocLine(" *"); //$NON-NLS-1$
         StringBuilder sb = new StringBuilder();
         sb.append(" * "); //$NON-NLS-1$
@@ -109,7 +109,7 @@ public class MyCommentGenerator implements CommentGenerator{
      * This method returns a formated date string to include in the Javadoc tag
      * and XML comments. You may return null if you do not want the date in
      * these documentation elements.
-     * 
+     *
      * @return a string representing the current timestamp, or null
      */
     protected String getDateString() {
@@ -120,8 +120,7 @@ public class MyCommentGenerator implements CommentGenerator{
         }
     }
 
-    public void addClassComment(InnerClass innerClass,
-            IntrospectedTable introspectedTable) {
+    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable) {
 //        if (true) {
 //            return;
 //        }
@@ -141,8 +140,7 @@ public class MyCommentGenerator implements CommentGenerator{
 //        innerClass.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
-    public void addEnumComment(InnerEnum innerEnum,
-            IntrospectedTable introspectedTable) {
+    public void addEnumComment(InnerEnum innerEnum, IntrospectedTable introspectedTable) {
 //        if (true) {
 //            return;
 //        }
@@ -163,9 +161,9 @@ public class MyCommentGenerator implements CommentGenerator{
     }
 
     public void addFieldComment(Field field,
-            IntrospectedTable introspectedTable,
-            IntrospectedColumn introspectedColumn) {
-    	if (suppressAllComments) {
+                                IntrospectedTable introspectedTable,
+                                IntrospectedColumn introspectedColumn) {
+        if (suppressAllComments) {
             return;
         }
         StringBuilder sb = new StringBuilder();
@@ -197,7 +195,7 @@ public class MyCommentGenerator implements CommentGenerator{
     }
 
     public void addGeneralMethodComment(Method method,
-            IntrospectedTable introspectedTable) {
+                                        IntrospectedTable introspectedTable) {
 //        if (true) {
 //            return;
 //        }
@@ -217,35 +215,32 @@ public class MyCommentGenerator implements CommentGenerator{
 //        method.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
-    public void addGetterComment(Method method,
-            IntrospectedTable introspectedTable,
-            IntrospectedColumn introspectedColumn) {
+    public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
         if (suppressAllComments) {
             return;
         }
 
         StringBuilder sb = new StringBuilder();
         method.addJavaDocLine("/**"); //$NON-NLS-1$
-        sb.append(" * "+introspectedColumn.getRemarks()); //$NON-NLS-1$
+        sb.append(" * " + introspectedColumn.getRemarks()); //$NON-NLS-1$
         method.addJavaDocLine(sb.toString());
         method.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
     public void addSetterComment(Method method,
-            IntrospectedTable introspectedTable,
-            IntrospectedColumn introspectedColumn) {
+                                 IntrospectedTable introspectedTable,
+                                 IntrospectedColumn introspectedColumn) {
         if (suppressAllComments) {
             return;
         }
         StringBuilder sb = new StringBuilder();
         method.addJavaDocLine("/**"); //$NON-NLS-1$
-        sb.append(" * "+introspectedColumn.getRemarks()); //$NON-NLS-1$
+        sb.append(" * " + introspectedColumn.getRemarks()); //$NON-NLS-1$
         method.addJavaDocLine(sb.toString());
         method.addJavaDocLine(" */"); //$NON-NLS-1$
     }
 
-    public void addClassComment(InnerClass innerClass,
-            IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
+    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
         if (suppressAllComments) {
             return;
         }

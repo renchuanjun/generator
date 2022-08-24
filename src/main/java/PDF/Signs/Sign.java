@@ -14,6 +14,7 @@ import com.itextpdf.text.pdf.parser.RenderListener;
 import com.itextpdf.text.pdf.parser.TextRenderInfo;
 import com.itextpdf.text.pdf.security.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,17 +48,24 @@ public class Sign {
      * @throws IOException
      * @throws DocumentException
      */
-    public static void sign(String src, String dest, String img, Certificate[] chain, PrivateKey pk, String digestAlgorithm, String provider,
+    public static void sign(String src, String dest, String img, Certificate[] chain, PrivateKey pk, String digestAlgorithm,
                             MakeSignature.CryptoStandard subfilter, String reason, String location) throws GeneralSecurityException, IOException, DocumentException {
         PdfReader pdfReader = new PdfReader(src);
+
+
         Image image = Image.getInstance(img);
+
         FileOutputStream fileOutputStream = new FileOutputStream(dest);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         /**
          * 1 参数依次为：文件名、文件输入流、文件版本号、临时文件、是否可以追加签名
          *  1.1 false的话，pdf文件只允许被签名一次，多次签名，最后一次有效
          *  1.2 true的话，pdf可以被追加签名，验签工具可以识别出每次签名之后文档是否被修改
          */
         PdfStamper stamper = PdfStamper.createSignature(pdfReader, fileOutputStream, '\0', null, false);
+
+//        PdfStamper stamper1 = PdfStamper.createSignature(pdfReader, baos, '\0', null, false);
 
         // 获取数字签章属性对象，设定数字签章的属性
         PdfSignatureAppearance appearance = stamper.getSignatureAppearance();
@@ -81,12 +89,14 @@ public class Sign {
         float signImageHeight = image.getHeight();
         float signImageHeightSocale = 85 / signImageWidth * signImageHeight;
 
-        KeyWordInfo keyWordInfo = getKeyWordLocation(1, keyWords, pdfReader);
         int pageSize = pdfReader.getNumberOfPages();
-        Rectangle rectangle = pdfReader.getPageSize(pageSize);
-        float width = rectangle.getWidth();
-//                llx = keyWordInfo.getY() + (float) keyWordInfo.getHeight();
-//                lly = width - keyWordInfo.getX() - signImageHeightSocale / 2;
+        KeyWordInfo keyWordInfo = getKeyWordLocation(pageSize, keyWords, pdfReader);
+
+
+        //Rectangle rectangle = pdfReader.getPageSize(pageSize);
+        //float width = rectangle.getWidth();
+        //llx = keyWordInfo.getY() + (float) keyWordInfo.getHeight();
+        //lly = width - keyWordInfo.getX() - signImageHeightSocale / 2;
 
         llx = keyWordInfo.getX() + (float) keyWordInfo.getWidth() * keyWords.length();
         lly = keyWordInfo.getY() - signImageHeightSocale / 2;
@@ -94,10 +104,11 @@ public class Sign {
 
         float urx = llx + 85;
         float ury = lly + signImageHeightSocale;
-//        appearance.setVisibleSignature(new Rectangle(100, 100, 200, 200), 1, "sign");
+        //appearance.setVisibleSignature(new Rectangle(100, 100, 200, 200), 1, "sign");
 
         appearance.setVisibleSignature(new Rectangle(llx, lly, urx, ury), pageSize, "sign");
-//        appearance.setVisibleSignature(locationResult.getRectangle(), 1, signConfig.getSignFiledName());
+
+
         /**
          * 用于盖章的印章图片，引包的时候要引入itext包的image
          */
@@ -143,44 +154,40 @@ public class Sign {
      * @return
      * @throws IOException
      */
-    private static KeyWordInfo getKeyWordLocation(Integer numberOfPages,
-                                                  final String keyWords, PdfReader reader) throws IOException {
+    private static KeyWordInfo getKeyWordLocation(Integer numberOfPages, final String keyWords, PdfReader reader) throws IOException {
         PdfReaderContentParser pdfReaderContentParser = new PdfReaderContentParser(
                 reader);
         final KeyWordInfo keyWordInfo = new KeyWordInfo();
-        pdfReaderContentParser.processContent(numberOfPages,
-                new RenderListener() {
-                    @Override
-                    public void renderText(TextRenderInfo textRenderInfo) {
-                        String text = textRenderInfo.getText(); // 整页内容
+        pdfReaderContentParser.processContent(numberOfPages, new RenderListener() {
+            @Override
+            public void renderText(TextRenderInfo textRenderInfo) {
+                String text = textRenderInfo.getText(); // 整页内容
 
-                        if (null != text && text.contains(keyWords)) {
-                            Rectangle2D.Float boundingRectange = textRenderInfo
-                                    .getBaseline().getBoundingRectange();
-                            float leftY = (float) boundingRectange.getMinY() - 1;
-                            float rightY = (float) boundingRectange.getMaxY() + 1;
-                            System.out.println(boundingRectange.x + "--"
-                                    + boundingRectange.y + "---");
-                            keyWordInfo.setHeight(rightY - leftY);
-                            keyWordInfo.setWidth((rightY - leftY)
-                                    * keyWords.length());
-                            keyWordInfo.setX(boundingRectange.x);
-                            keyWordInfo.setY(boundingRectange.y);
-                        }
-                    }
+                if (null != text && text.contains(keyWords)) {
+                    Rectangle2D.Float boundingRectange = textRenderInfo.getBaseline().getBoundingRectange();
+                    float leftY = (float) boundingRectange.getMinY() - 1;
+                    float rightY = (float) boundingRectange.getMaxY() + 1;
+                    System.out.println(boundingRectange.x + "--" + boundingRectange.y + "---");
 
-                    @Override
-                    public void renderImage(ImageRenderInfo arg0) {
-                    }
+                    keyWordInfo.setHeight(rightY - leftY);
+                    keyWordInfo.setWidth((rightY - leftY) * keyWords.length());
+                    keyWordInfo.setX(boundingRectange.x);
+                    keyWordInfo.setY(boundingRectange.y);
+                }
+            }
 
-                    @Override
-                    public void endTextBlock() {
-                    }
+            @Override
+            public void renderImage(ImageRenderInfo arg0) {
+            }
 
-                    @Override
-                    public void beginTextBlock() {
-                    }
-                });
+            @Override
+            public void endTextBlock() {
+            }
+
+            @Override
+            public void beginTextBlock() {
+            }
+        });
         return keyWordInfo;
     }
 
@@ -188,11 +195,15 @@ public class Sign {
     public static final String KEYSTORE = "D:\\test.keystore";
     // 之前生成的keystory密码
     public static final char[] PASSWORD = "123456".toCharArray();
+
+    public static final String IMG = "D:\\logo.png";
+
     // 需要签名的PDF路径
     public static final String SRC = "D:\\pdfDemo1.pdf";
+
     // 完成签名的PDF路径
-    public static final String OUTPUT_SRC = "D:\\abc-sign11.pdf";
-    public static final String IMG = "D:\\logo.png";
+    public static final String OUTPUT_SRC = "D:\\abc-sign2.pdf";
+
 
     public static void main(String[] args) throws IOException, DocumentException, GeneralSecurityException {
         //读取keystore ，获得私钥和证书链
@@ -201,10 +212,12 @@ public class Sign {
         String alias = (String) keyStore.aliases().nextElement();
         PrivateKey PrivateKey = (PrivateKey) keyStore.getKey(alias, PASSWORD);
         Certificate[] chain = keyStore.getCertificateChain(alias);
-        sign(SRC, String.format(OUTPUT_SRC, 3), IMG, chain, PrivateKey,
-                DigestAlgorithms.SHA1, null, MakeSignature.CryptoStandard.CMS,
-                "Test", "总体判定结果");
+
+
+        sign(SRC, String.format(OUTPUT_SRC, 3), IMG, chain, PrivateKey, DigestAlgorithms.SHA1,
+                MakeSignature.CryptoStandard.CMS, "Test", "总体判定结果");
         System.out.println("签章完成");
     }
+
 
 }

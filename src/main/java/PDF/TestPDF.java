@@ -54,7 +54,7 @@ public class TestPDF {
     }
 
     private static void writeToOutputStreamAsPDF(String htmlStr) throws Exception {
-        String targetFile = "D:/pdfDemo1.pdf";
+        String targetFile = "D:/pdfDemo2.pdf";
         File targeFile = new File(targetFile);
         if (targeFile.exists()) {
             targeFile.delete();
