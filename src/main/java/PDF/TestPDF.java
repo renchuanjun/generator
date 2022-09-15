@@ -1,10 +1,7 @@
 package PDF;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfName;
-import com.itextpdf.text.pdf.PdfPageEvent;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.codec.Base64;
 import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.XMLWorkerFontProvider;
@@ -39,9 +36,9 @@ import java.util.Map;
 public class TestPDF {
 
 
-
     public static void main(String[] args) throws Exception {
-        StringBuffer textHtml = new StringBuffer();
+        //html 转PDF
+        /*StringBuffer textHtml = new StringBuffer();
         File file = new File("D:/workspace/generator/src/main/resources/aaa.html");
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String tempString = null;
@@ -50,7 +47,13 @@ public class TestPDF {
             textHtml.append(tempString);
         }
         reader.close();
-        writeToOutputStreamAsPDF(textHtml.toString());
+        writeToOutputStreamAsPDF(textHtml.toString());*/
+
+        //PDF 水银
+        String path = "D:\\abc-sign2水银.pdf";
+        String input = "D:\\abc-sign2.pdf";
+        setWatermark( path,  input);
+
     }
 
     private static void writeToOutputStreamAsPDF(String htmlStr) throws Exception {
@@ -125,5 +128,49 @@ public class TestPDF {
 
         document.close();
 
+    }
+
+    /**
+     * 实现功能描述：PDF 水银
+     *
+     * @param:
+     * @author: 任传君
+     * @date: 2022-08-24 16:20
+     */
+    private static void setWatermark(String path, String input) throws Exception {
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(path)));
+        PdfReader pdfReader = new PdfReader(input);
+        PdfStamper stamper = new PdfStamper(pdfReader, bos);
+        int total = pdfReader.getNumberOfPages() + 1;
+        PdfContentByte content;
+        BaseFont base = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.EMBEDDED);
+        PdfGState gs = new PdfGState();
+
+        for (int i = 1; i < total; i++) {
+            //在内容上方增加水银
+            content = stamper.getOverContent(i);
+            //在内容下方增加水银
+            content = stamper.getUnderContent(i);
+
+            //文字水银
+            content.beginText();
+            content.setColorFill(BaseColor.DARK_GRAY);//颜色
+            content.setFontAndSize(base, 15);//字体大小
+            content.setTextMatrix(70, 200);//设置文本矩阵
+            //具体位置 内容 x  y  坐标 旋转度
+            content.showTextAligned(Element.ALIGN_CENTER, "王琪01", 300, 350, 300);
+            content.showTextAligned(Element.ALIGN_TOP, "王琪02", 100, 150, 5);
+            content.showTextAligned(Element.ALIGN_BOTTOM, "王琪03", 400, 400, 75);
+            content.endText();
+
+
+            //图片水银
+            Image instance = Image.getInstance("D:\\logo.png");
+            instance.setAbsolutePosition(10, 300);//绝对位置
+            instance.scaleToFit(185, 240);//图片缩放比
+            instance.setRotationDegrees(0);//旋转角度
+            content.addImage(instance);
+        }
+        stamper.close();
     }
 }
