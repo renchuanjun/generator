@@ -1,26 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataBase>
 <!-- 模板 代码 -->
-<!--<table daoPath="org.open.bank.dao1"  xmlPath="org.open.bank.mapper1"  modelPath="org.open.bank.model1" tableName="basics_feerule(表命)"  domainObjectName="BasicsFeerule(生成实体类别名)">
+<!--<table daoPath="org.open.bank.dao1"  xmlPath="org.open.bank.mapper1"  modelPath="org.open.bank.model1" tableName="basics_feerule(表命)"
+		domainObjectName="BasicsFeerule(生成实体类别名)">
 			<columnOverride column="enabled"/>
 	</table>-->
 
-	<!--<table daoPath="com.docimax.judicial.archives.domain.archives.mapper"  xmlPath="com.docimax.judicial.archives.domain.archives.xml"  modelPath="com.docimax.judicial.archives.domain.archives.entity" tableName="archives"  domainObjectName="Archives">
+	<!--<table daoPath="com.docimax.erms.mapper"  xmlPath="ccom.docimax.erms.archives.xml"  modelPath="com.docimax.erms.model" tableName="archives"  domainObjectName="Archives">
 	</table>
-	<table daoPath="com.docimax.judicial.archives.domain.archives.mapper"  xmlPath="com.docimax.judicial.archives.domain.archives.xml"  modelPath="com.docimax.judicial.archives.domain.archives.entity" tableName="check_report"  domainObjectName="CheckReport">
+	<table daoPath="com.docimax.erms.mapper"  xmlPath="ccom.docimax.erms.archives.xml"  modelPath="com.docimax.erms.model" tableName="check_report"  domainObjectName="CheckReport">
 	</table>
-	<table daoPath="com.docimax.judicial.archives.domain.archives.mapper"  xmlPath="com.docimax.judicial.archives.domain.archives.xml"  modelPath="com.docimax.judicial.archives.domain.archives.entity" tableName="log_message"  domainObjectName="LogMessage">
+	<table daoPath="com.docimax.erms.mapper"  xmlPath="ccom.docimax.erms.archives.xml"  modelPath="com.docimax.erms.model" tableName="log_message"  domainObjectName="LogMessage">
 	</table>
-	<table daoPath="com.docimax.judicial.archives.domain.archives.mapper"  xmlPath="com.docimax.judicial.archives.domain.archives.xml"  modelPath="com.docimax.judicial.archives.domain.archives.entity" tableName="pres_archives"  domainObjectName="PresArchives">
+	<table daoPath="com.docimax.erms.mapper"  xmlPath="ccom.docimax.erms.archives.xml"  modelPath="com.docimax.erms.model" tableName="pres_archives"  domainObjectName="PresArchives">
 	</table>
-	<table daoPath="com.docimax.judicial.archives.domain.archives.mapper"  xmlPath="com.docimax.judicial.archives.domain.archives.xml"  modelPath="com.docimax.judicial.archives.domain.archives.entity" tableName="archives_xml"  domainObjectName="ArchivesXml">
+	<table daoPath="com.docimax.erms.mapper"  xmlPath="ccom.docimax.erms.archives.xml"  modelPath="com.docimax.erms.model" tableName="archives_xml"  domainObjectName="ArchivesXml">
 	</table>
 
-	<table daoPath="com.docimax.judicial.archives.domain.archives.mapper"  xmlPath="com.docimax.judicial.archives.domain.archives.xml"  modelPath="com.docimax.judicial.archives.domain.archives.entity" tableName="file_message"  domainObjectName="FileMessage">
+	<table daoPath="com.docimax.erms.mapper"  xmlPath="ccom.docimax.erms.archives.xml"  modelPath="com.docimax.erms.model" tableName="file_message"  domainObjectName="FileMessage">
 	</table>
-	<table daoPath="com.docimax.judicial.archives.domain.archives.mapper"  xmlPath="com.docimax.judicial.archives.domain.archives.xml"  modelPath="com.docimax.judicial.archives.domain.archives.entity" tableName="files"  domainObjectName="Files">
+	<table daoPath="com.docimax.erms.mapper"  xmlPath="ccom.docimax.erms.archives.xml"  modelPath="com.docimax.erms.model" tableName="files"  domainObjectName="Files">
 	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.nonLitigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_description_message"  domainObjectName="DescriptionMessage">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.nonLitigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_non_litigation"  domainObjectName="NonLitigation">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.nonLitigation.xml"  modelPath="com.docimax.erms.model" tableName="tr_file_relation"  domainObjectName="FileRelation">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.nonLitigation.xml"  modelPath="com.docimax.erms.model" tableName="tr_approval_relation"  domainObjectName="ApprovalRelation">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.nonLitigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_approval"  domainObjectName="Approval">-->
+<!--	</table>-->
 
-	<table daoPath="com.docimax.judicial.archives.domain.archives.mapper"  xmlPath="com.docimax.judicial.archives.domain.archives.xml"  modelPath="com.docimax.judicial.archives.domain.archives.entity" tableName="archives_user"  domainObjectName="ArchivesUser">
+
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.litigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_litigation"  domainObjectName="Litigation">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.litigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_litigation_user"  domainObjectName="LitigationUser">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.litigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_pigeonhole_message"  domainObjectName="PigeonholeMessage">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.litigation.xml"  modelPath="com.docimax.erms.model" tableName="tr_litigation_relation"  domainObjectName="LitigationRelation">-->
+<!--	</table>-->
+
+
+
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.common.xml"  modelPath="com.docimax.erms.model" tableName="tb_check_message"  domainObjectName="CheckMessage">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.common.xml"  modelPath="com.docimax.erms.model" tableName="tb_check_report"  domainObjectName="CheckReport">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.common.xml"  modelPath="com.docimax.erms.model" tableName="tb_file_message"  domainObjectName="FileMessage">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.common.xml"  modelPath="com.docimax.erms.model" tableName="tb_receive_log"  domainObjectName="ReceiveLog">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.common.xml"  modelPath="com.docimax.erms.model" tableName="td_file_info"  domainObjectName="FileInfo">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.common.xml"  modelPath="com.docimax.erms.model" tableName="tb_check_report"  domainObjectName="CheckReport">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.nonLitigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_approval"  domainObjectName="Approval">&ndash;&gt;-->
+<!--		</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.common.xml"  modelPath="com.docimax.erms.model" tableName="tb_receive_log"  domainObjectName="ReceiveLog">&ndash;&gt;-->
+<!--	</table>-->
+
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.nonLitigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_non_litigation"  domainObjectName="NonLitigation">&ndash;&gt;-->
+<!--		</table>-->
+
+
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.litigation.xml"  modelPath="com.docimax.erms.model" tableName="tb_pigeonhole_message"  domainObjectName="PigeonholeMessage">&ndash;&gt;-->
+<!--	</table>-->
+
+	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_pigeonhole_message"  domainObjectName="PigeonholeMessage">
 	</table>
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_check_message"  domainObjectName="CheckMessage">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_check_report"  domainObjectName="CheckReport">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_description_message"  domainObjectName="DescriptionMessage">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_file_info"  domainObjectName="FileInfo">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_litigation_info"  domainObjectName="LitigationInfo">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_litigation_user"  domainObjectName="LitigationUser">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_non_litigation_info"  domainObjectName="NonLitigationInfo">-->
+<!--	</table>-->
+<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_pigeonhole_message"  domainObjectName="PigeonholeMessage">-->
+<!--	</table>-->
 </dataBase>
