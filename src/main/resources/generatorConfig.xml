@@ -15,9 +15,9 @@
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://172.30.199.79:3306/erms-ingest?useSSL=false&amp;nullNamePatternMatchesAll=true"
+			connectionURL="jdbc:mysql://xxxx.xxx.xxx.xxx:3306/erms-generate?useSSL=false&amp;nullNamePatternMatchesAll=true"
 			userId="root"
-			password="Docimax@123">
+			password="xxxxxxxxxx">
 		</jdbcConnection>
 
 		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 
