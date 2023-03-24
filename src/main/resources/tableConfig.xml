@@ -6,12 +6,8 @@
 			<columnOverride column="enabled"/>
 	</table>-->
 
-	<table daoPath="org.open.mapper"  xmlPath="org.open.mapper"  modelPath="org.open.model" tableName="er_file_item"  domainObjectName="FileItem">
+	<table daoPath="org.open.mapper"  xmlPath="org.open.mapper"  modelPath="org.open.model" tableName="bt_village_team"  domainObjectName="VillageTeam">
 	</table>
-<!--	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_report"  domainObjectName="Report">
+	<table daoPath="org.open.mapper"  xmlPath="org.open.mapper"  modelPath="org.open.model" tableName="bt_village_team_member"  domainObjectName="VillageTeamMember">
 	</table>
-	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_report"  domainObjectName="Report">
-	</table>
-	<table daoPath="com.docimax.erms.mapper"  xmlPath="com.docimax.erms.xml"  modelPath="com.docimax.erms.model" tableName="tb_report"  domainObjectName="Report">
-	</table>-->
 </dataBase>
