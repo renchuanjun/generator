@@ -369,8 +369,8 @@ public class Main {
 //        sealSix("影研科技测试专用章", "影研科技", "正版认证", 300);
 //        sealSeven("影研科技测试专用章", "影研科技",  "正版认证", 300);
         //2.生成私章
-//        SealFont font = new SealFont();
-//        font.setFontSize(120).setBold(true).setFontText("任传君");
-//        SealUtil.buildAndStorePersonSeal(300, 16, font, "印", "D:\\私章.png");
+        SealFont font = new SealFont();
+        font.setFontSize(120).setBold(true).setFontText("任传君");
+        SealUtil.buildAndStorePersonSeal(300, 16, font, "印", "D:\\私章.png");
     }
 }

@@ -11,28 +11,32 @@ import java.awt.image.RGBImageFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import sun.font.FontDesignMetrics;
-
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import sun.font.FontDesignMetrics;
+
 
 /**
  * @Description: 生成 一个签章图片
  * @author: 任传君
  * @date: 2022.07.18
  */
+
 public class signimage {
 
-    /**
+/*
+*
      * @param doctorname   string 医生名字
      * @param hospitalname string 医生名称
      * @param date         string 签名日期
      *                     图片高度
      * @param jpgname      string jpg图片名
      * @return
-     */
-    /*public static boolean createsigntextimg( String doctorname, String hospitalname, String date, String jpgname) {
+
+*/
+
+public static boolean createsigntextimg( String doctorname, String hospitalname, String date, String jpgname) {
         int width = 255;
         int height = 100;
         FileOutputStream out = null;
@@ -110,7 +114,8 @@ public class signimage {
 
     public static void main(String[] args) {
         createsigntextimg("影研", "影研科技", "2022.01.01", "sign.png");
-    }*/
+    }
+
 
 
 

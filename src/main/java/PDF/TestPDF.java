@@ -33,12 +33,13 @@ import java.util.Map;
  * @author: 任传君
  * @date: 2022.07.07
  */
+
 public class TestPDF {
 
 
     public static void main(String[] args) throws Exception {
         //html 转PDF
-        /*StringBuffer textHtml = new StringBuffer();
+StringBuffer textHtml = new StringBuffer();
         File file = new File("D:/workspace/generator/src/main/resources/aaa.html");
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String tempString = null;
@@ -47,7 +48,8 @@ public class TestPDF {
             textHtml.append(tempString);
         }
         reader.close();
-        writeToOutputStreamAsPDF(textHtml.toString());*/
+        writeToOutputStreamAsPDF(textHtml.toString());
+
 
         //PDF 水银
         String path = "D:\\abc-sign2水银.pdf";
@@ -130,13 +132,14 @@ public class TestPDF {
 
     }
 
-    /**
+/**
      * 实现功能描述：PDF 水银
      *
      * @param:
      * @author: 任传君
-     * @date: 2022-08-24 16:20
-     */
+     * @date: 2022-08-24 16:20*/
+
+
     private static void setWatermark(String path, String input) throws Exception {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(path)));
         PdfReader pdfReader = new PdfReader(input);

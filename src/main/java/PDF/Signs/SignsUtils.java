@@ -82,7 +82,7 @@ public class SignsUtils {
          *  CERTIFIED_FORM_FILLING 和 CERTIFIED_FORM_FILLING_AND_ANNOTATIONS
          *  需要用哪一种根据业务流程自行选择
          */
-        appearance.setCertificationLevel(PdfSignatureAppearance.NOT_CERTIFIED);
+        appearance.setCertificationLevel(PdfSignatureAppearance.CERTIFIED_NO_CHANGES_ALLOWED);
         /*
          *  印章的渲染方式，同样有4种：
          *  DESCRIPTION、NAME_AND_DESCRIPTION,

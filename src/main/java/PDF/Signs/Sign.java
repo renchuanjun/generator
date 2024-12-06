@@ -192,17 +192,19 @@ public class Sign {
     }
 
 
-    public static final String KEYSTORE = "D:\\test.keystore";
+
+    public static final String KEYSTORE = "D:\\MyFirstApp.keystore";
     // 之前生成的keystory密码
     public static final char[] PASSWORD = "123456".toCharArray();
 
-    public static final String IMG = "D:\\logo.png";
+    public static final String IMG = "D:\\公章1.png";
 
     // 需要签名的PDF路径
-    public static final String SRC = "D:\\pdfDemo1.pdf";
+    public static final String SRC = "D:\\bae937c37cad4fdfb64b22fded938f80.pdf";
 
     // 完成签名的PDF路径
     public static final String OUTPUT_SRC = "D:\\abc-sign2.pdf";
+
 
 
     public static void main(String[] args) throws IOException, DocumentException, GeneralSecurityException {
@@ -214,8 +216,7 @@ public class Sign {
         Certificate[] chain = keyStore.getCertificateChain(alias);
 
 
-        sign(SRC, String.format(OUTPUT_SRC, 3), IMG, chain, PrivateKey, DigestAlgorithms.SHA1,
-                MakeSignature.CryptoStandard.CMS, "Test", "总体判定结果");
+        sign(SRC, String.format(OUTPUT_SRC, 3), IMG, chain, PrivateKey, DigestAlgorithms.SHA1, MakeSignature.CryptoStandard.CMS, "Test", "平台运营方电子签章盖章处");
         System.out.println("签章完成");
     }
 
